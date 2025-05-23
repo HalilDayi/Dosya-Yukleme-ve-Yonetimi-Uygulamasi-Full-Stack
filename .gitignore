@@ -1,0 +1,57 @@
+# Genellikle tüm projeler için ignore edilecek dosyalar ve klasörler
+.DS_Store # macOS specific
+Thumbs.db # Windows specific
+*.log # Tüm log dosyaları
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Ortam değişkenleri
+.env
+.env.* # .env.local gibi tüm .env türevleri
+
+# IDE ve Editor dosyaları
+.vscode/ # VS Code ayarları
+.idea/ # IntelliJ IDEA ayarları
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw? # Vim swap files
+*.swp
+*.swo
+
+# Node.js / Frontend spesifik
+node_modules/ # Genel node_modules klasörü
+build/ # Genel build çıktıları
+dist/ # Genel dist çıktıları
+*.cache/ # Tüm cache klasörleri
+
+# Eğer dfa_project kök dizinde değilse, projenizin kök dizinine göre ayarlayın
+dfa_project/node_modules/
+dfa_project/build/
+dfa_project/dist/
+dfa_project/package-lock.json # package.json varsa buna gerek kalmaz, genellikle yeniden oluşturulur.
+dfa_project/.local/ # dfa_project/.gitignore dosyasından gelen *.local kuralı
+
+# Python / Backend spesifik
+__pycache__/ # Tüm Python __pycache__ klasörleri
+*.pyc
+*.pyo
+*.pyd
+*.eggs/
+*.egg-info/
+venv/ # Tüm venv sanal ortam klasörleri
+.venv/ # Tüm .venv sanal ortam klasörleri
+env/ # Tüm env sanal ortam klasörleri
+
+# Eğer dfa_backend kök dizinde değilse, projenizin kök dizinine göre ayarlayın
+dfa_backend/__pycache__/
+dfa_backend/venv/
+dfa_backend/.venv/
+dfa_backend/env/
+dfa_backend/.env/
+dfa_backend/.pytest_cache/ # pytest cache klasörü
+dfa_project/package-lock.json

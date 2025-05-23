@@ -1,0 +1,21 @@
+/* src/index.css */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* HTML, body ve React'in mount olduğu #root div'inin tam yüksekliği kaplamasını sağlar */
+  width: 100%;/* src/index.css */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%; /* HTML, body ve React'in mount olduğu #root div'inin tam yüksekliği kaplamasını sağlar */
+  width: 100%;
+  font-family: Arial, sans-serif; /* Okunabilir bir font */
+  box-sizing: border-box; /* padding ve border'ın genişliği etkilememesi için */
+}
+
+/* Diğer global stilleriniz varsa buraya ekleyebilirsiniz */
+  font-family: Arial, sans-serif; /* Okunabilir bir font */
+  box-sizing: border-box; /* padding ve border'ın genişliği etkilememesi için */
+}
+
+/* Diğer global stilleriniz varsa buraya ekleyebilirsiniz */

@@ -1,0 +1,187 @@
+/* src/SignUpPage.css */
+
+/* --- Ana Kapsayıcı --- */
+.signup-container {
+    display: flex;
+    min-height: 100vh;
+    width: 100vw;
+    overflow: hidden;
+}
+
+/* --- Sol Panel (Resim Alanı) --- */
+.signup-image-panel {
+    flex: 1;
+    background: linear-gradient(135deg, #007bff 0%, #00d2ff 100%); /* Mavi gradyan */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    color: white;
+    text-align: center;
+}
+
+.signup-image-panel .image-panel-title {
+    font-size: 2.2rem; /* SignIn ile aynı */
+    font-weight: bold;
+    margin-bottom: 0.8rem;
+}
+
+.signup-image-panel .image-panel-text {
+    font-size: 1rem; /* SignIn ile aynı */
+    line-height: 1.5;
+    max-width: 400px;
+}
+
+/* --- Sağ Panel (Form Alanı) --- */
+.signup-form-panel {
+    flex: 2;
+    background-color: #ffffff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem; /* Padding biraz daha azaltıldı */
+    box-sizing: border-box;
+    overflow-y: auto; /* İçerik taşarsa dikey kaydırma çubuğu ekler */
+}
+
+.signup-card {
+    background-color: #ffffff;
+    padding: 2rem; /* Card padding'i SignIn ile aynı */
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    max-width: 420px; /* Maksimum genişlik SignIn ile aynı */
+    width: 100%;
+    text-align: center;
+    height: auto; /* Yüksekliği içeriğe göre ayarlar */
+    max-height: calc(100vh - 4rem); /* Ekran yüksekliğini padding'lerle sınırla */
+    /* 4rem = 2rem (top padding) + 2rem (bottom padding) */
+}
+
+.signup-title {
+    font-size: 1.8rem; /* SignIn ile aynı */
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+.signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem; /* Boşluklar daha da azaltıldı */
+}
+
+.input-group {
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.85rem; /* SignIn ile aynı */
+    color: #555;
+    margin-bottom: 0.4rem;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.65rem 0.9rem; /* SignIn ile aynı */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.95rem; /* SignIn ile aynı */
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.2);
+}
+
+.signup-button {
+    width: 100%;
+    padding: 0.9rem; /* SignIn ile aynı */
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem; /* SignIn ile aynı */
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 1rem;
+}
+
+.signup-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.signup-button:active {
+    background-color: #004085;
+    transform: translateY(0);
+}
+
+/* --- Giriş Linki --- */
+.signin-link-container {
+    margin-top: 1.5rem; /* SignIn ile aynı */
+    font-size: 0.9rem; /* SignIn ile aynı */
+    color: #666;
+}
+
+.signin-link {
+    color: #007bff;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.signin-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* --- Duyarlılık (Responsive Tasarım) --- */
+@media (max-width: 768px) {
+    .signup-container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+    }
+
+    .signup-image-panel {
+        display: none;
+    }
+
+    .signup-form-panel {
+        flex: none;
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .signup-card {
+        padding: 1.5rem;
+        box-shadow: none;
+        max-width: 100%;
+        max-height: calc(100vh - 2rem); /* Mobil padding'e göre ayarla */
+        /* 2rem = 1rem (top padding) + 1rem (bottom padding) */
+    }
+
+    .signup-title {
+        font-size: 1.6rem;
+        margin-bottom: 1rem;
+    }
+
+    .signup-form {
+        gap: 0.6rem; /* Mobil için daha da az boşluk */
+    }
+
+    .signup-button {
+        font-size: 0.95rem;
+        padding: 0.75rem;
+    }
+
+    .signin-link-container {
+        font-size: 0.85rem;
+    }
+}

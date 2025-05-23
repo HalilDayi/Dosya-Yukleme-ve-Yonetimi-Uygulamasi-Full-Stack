@@ -1,0 +1,425 @@
+/* src/DashboardPage.css */
+
+/* 1. Ekranın tamamını kaplama */
+html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı div'dir */
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto; /* Sayfa içeriği taştığında kaydırma çubuğu çıksın */
+    background-color: #f0f2f5; /* Hafif bir arka plan rengi */
+    font-family: 'Inter', sans-serif; /* Inter fontu kullanıldı */
+}
+
+.dashboard-wrapper {
+    min-height: 100vh; /* Ekran yüksekliğinin tamamını kapla */
+    display: flex;
+    flex-direction: column; /* İçeriği dikey sırala */
+    align-items: center; /* Yatayda ortala */
+    padding: 20px; /* Kenarlardan boşluk */
+    box-sizing: border-box; /* Padding'in genişliğe dahil olmasını sağla */
+    position: relative; /* Çıkış butonu için referans noktası */
+}
+
+/* 2. Çıkış Yap butonu sağ üst köşede */
+.logout-button {
+    position: absolute; /* dashboard-wrapper'a göre konumlandır */
+    top: 20px;
+    right: 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px; /* Daha yuvarlak köşeler */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    z-index: 1000; /* Diğer elemanların üzerinde durması için */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Hafif gölge */
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px); /* Hafif yukarı hareket */
+}
+
+/* Ana içerik kapsayıcısı */
+.dashboard-container {
+    width: 100%; /* Tam genişlik kullan */
+    max-width: 900px; /* Maksimum genişliği koru */
+    margin-top: 70px; /* Çıkış butonuyla çakışmaması için biraz boşluk */
+    padding: 20px 30px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* İçindeki elemanları yatayda ortala */
+}
+
+/* 3. "Dosyalarım" başlığı ekranın ortasında */
+.dashboard-header {
+    width: 100%; /* İçinde bulunduğu container'ın tam genişliğini al */
+    text-align: center; /* Yazıyı ortala */
+    margin-bottom: 30px;
+    border-bottom: 2px solid #e0e0e0; /* Daha açık bir çizgi */
+    padding-bottom: 15px;
+}
+
+.dashboard-header h1 {
+    color: #007bff;
+    font-size: 2.8em; /* Daha büyük başlık */
+    margin: 0;
+    font-weight: 700; /* Kalınlık */
+}
+
+/* 4. Arama çubuğu ve dosya yükleme bölümü */
+.controls-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column; /* Varsayılan olarak dikey, küçük ekranlarda daha iyi */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+    gap: 20px; /* Bölümler arasında boşluk */
+}
+
+/* Arama çubuğu ve butonu için yeni kapsayıcı */
+.search-and-button-container {
+    display: flex;
+    gap: 10px; /* Input ve buton arasında boşluk */
+    width: 100%;
+    max-width: 00px; /* Arama bölümünün maksimum genişliği */
+    align-items: center;
+}
+
+.search-input {
+    flex-grow: 1; /* Mevcut alanı doldurur */
+    padding: 14px 18px; /* Daha büyük padding */
+    border: 1px solid #a0a0a0; /* Daha belirgin kenarlık */
+    border-radius: 8px; /* Daha yuvarlak köşeler */
+    font-size: 1.1em; /* Daha büyük font */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Odaklandığında mavi gölge */
+}
+
+.search-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 12px 25px; /* Daha büyük padding */
+    border-radius: 8px; /* Daha yuvarlak köşeler */
+    cursor: pointer;
+    font-size: 1.1em; /* Daha büyük font */
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2); /* Hafif gölge */
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+}
+
+.file-upload-section {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    width: 100%;
+    max-width: 600px; /* Yükleme bölümünün maksimum genişliği */
+    flex-wrap: wrap; /* Küçük ekranlarda sarmalama */
+    justify-content: center; /* Ortaya hizala */
+}
+
+.file-input-label {
+    background-color: #6c757d;
+    color: white;
+    padding: 10px 18px;
+    border-radius: 8px; /* Daha yuvarlak köşeler */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.file-input-label:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+}
+
+.file-input {
+    display: none;
+}
+
+.selected-file-name { /* Seçilen dosya adı için yeni stil */
+    font-size: 0.9em;
+    color: #333;
+    margin-left: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 150px; /* Dosya adının çok uzamasını engelle */
+    flex-shrink: 0;
+}
+
+.upload-button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px; /* Daha yuvarlak köşeler */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.upload-button:hover:not(:disabled) {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+}
+
+.upload-button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+/* 5. Dosya listesi bölümü */
+.total-files-info {
+    font-size: 1.1em;
+    color: #444;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.file-list-section {
+    width: 100%;
+    max-width: 800px;
+    background-color: #fdfdfd;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    min-height: 250px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.no-files-message {
+    text-align: center;
+    color: #666;
+    font-style: italic;
+    padding: 50px;
+}
+
+.file-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.file-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    justify-content: space-between;
+    gap: 15px;
+    flex-wrap: wrap; /* Küçük ekranlarda sarmalama */
+}
+
+.file-item:last-child {
+    border-bottom: none;
+}
+
+.file-name {
+    flex-grow: 1;
+    font-weight: bold;
+    color: #007bff;
+    text-decoration: none;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 30%; /* İsim için maksimum genişlik ayarlaması */
+}
+
+.file-size {
+    font-size: 0.9em;
+    color: #666;
+    margin-left: 10px;
+    flex-shrink: 0;
+}
+
+.download-link {
+    background-color: #17a2b8;
+    color: white;
+    padding: 8px 15px;
+    border-radius: 8px; /* Daha yuvarlak köşeler */
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(23, 162, 184, 0.2);
+}
+
+.download-link:hover {
+    background-color: #138496;
+    transform: translateY(-2px);
+}
+
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    width: 38px; /* Boyutu büyüttük */
+    height: 38px; /* Boyutu büyüttük */
+    border-radius: 50%;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1.2em; /* Yazı boyutu */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    flex-shrink: 0;
+    box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+}
+
+.delete-button:hover {
+    background-color: #c82333;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(220, 53, 69, 0.3);
+}
+
+.pagination-controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 30px;
+    gap: 20px;
+    width: 100%;
+}
+
+.pagination-controls button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px; /* Daha yuvarlak köşeler */
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
+}
+
+.pagination-controls button:hover:not(:disabled) {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
+}
+
+.pagination-controls button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+    box-shadow: none;
+    transform: none;
+}
+
+.pagination-controls span {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #555;
+}
+
+/* Responsive Ayarlamalar */
+@media (min-width: 769px) {
+    /* Büyük ekranlarda arama ve yükleme yan yana */
+    .controls-section {
+        flex-direction: row; /* Yatay sıralama */
+        justify-content: space-between; /* Boşlukları dağıt */
+        align-items: flex-start; /* Üstten hizala */
+        gap: 30px; /* Bölümler arası boşluk */
+        flex-wrap: nowrap; /* Sarmalamayı engelle */
+    }
+
+    .search-and-button-container,
+    .file-upload-section {
+        flex-basis: 48%; /* Yaklaşık yarım genişlik */
+        max-width: none; /* Max genişliği kaldır */
+        flex-shrink: 0;
+    }
+
+    .search-and-button-container {
+        justify-content: flex-start; /* Sola hizala */
+    }
+
+    .file-upload-section {
+        justify-content: flex-end; /* Sağa hizala */
+    }
+}
+
+
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 15px;
+        margin-top: 50px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2em;
+    }
+
+    .controls-section {
+        flex-direction: column; /* Dikey sıralama */
+        align-items: stretch; /* Yatayda genişlesinler */
+        gap: 15px;
+    }
+
+    .search-and-button-container,
+    .file-upload-section {
+        max-width: 100%; /* Tam genişlik */
+        flex-direction: column; /* İçindeki elemanları dikey sırala */
+        align-items: stretch;
+    }
+
+    .search-input,
+    .search-button,
+    .file-input-label,
+    .upload-button,
+    .selected-file-name {
+        width: 100%; /* Tam genişlik */
+        text-align: center;
+        margin-left: 0; /* Margin'i sıfırla */
+    }
+
+    .selected-file-name {
+        margin-top: 5px; /* Üstten boşluk */
+        max-width: 100%;
+    }
+
+    .file-item {
+        flex-direction: column; /* Öğeler sığmazsa alta geçsin */
+        justify-content: center; /* Ortaya hizala */
+        text-align: center;
+        gap: 10px;
+        align-items: stretch; /* Dikeyde genişlesinler */
+    }
+
+    .file-name, .file-size, .download-link, .delete-button {
+        flex-basis: 100%; /* Her biri kendi satırına geçsin */
+        max-width: 100%;
+    }
+
+    .download-link, .delete-button {
+        width: auto;
+        padding: 8px 12px;
+    }
+}
