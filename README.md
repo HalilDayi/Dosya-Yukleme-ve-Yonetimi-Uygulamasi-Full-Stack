@@ -33,6 +33,7 @@ Her dosya için, dosya tipine göre doğrudan tarayıcıda görüntülenebilen v
 
 ### Dosya Silme
 Kullanıcılar, ihtiyaç duymadıkları dosyaları dashboard üzerinden kolayca silebilirler. Silme işlemi, yanlışlıkla veri kaybını önlemek amacıyla ek bir onay adımı içerir ve dosya hem bulut depolamadan hem de veritabanından tamamen kaldırılır.
+
 ---
 
 ## 🛠️ Teknolojiler
