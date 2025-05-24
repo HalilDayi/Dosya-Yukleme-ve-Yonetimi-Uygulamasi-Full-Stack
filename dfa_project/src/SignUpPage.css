@@ -11,7 +11,7 @@
 /* --- Sol Panel (Resim Alanı) --- */
 .signup-image-panel {
     flex: 1;
-    background: linear-gradient(135deg, #007bff 0%, #00d2ff 100%); /* Mavi gradyan */
+    background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,6 +73,11 @@
 
 .input-group {
     text-align: left;
+    width: 92%;
+}
+
+.input-group > #firstName, .input-group > #lastName, .input-group > #email, .input-group > #password, .input-group > #confirmPassword{
+    color: white;
 }
 
 .input-group label {
@@ -101,7 +106,7 @@
 .signup-button {
     width: 100%;
     padding: 0.9rem; /* SignIn ile aynı */
-    background-color: #007bff;
+    background-color: #6a11cb;
     color: white;
     border: none;
     border-radius: 8px;
@@ -113,12 +118,12 @@
 }
 
 .signup-button:hover {
-    background-color: #0056b3;
+    background-color: #6a11cb;
     transform: translateY(-2px);
 }
 
 .signup-button:active {
-    background-color: #004085;
+    background-color: #6a11cb;
     transform: translateY(0);
 }
 
@@ -130,15 +135,45 @@
 }
 
 .signin-link {
-    color: #007bff;
+    color: #6a11cb;
     text-decoration: none;
     font-weight: bold;
     transition: color 0.3s ease;
 }
 
 .signin-link:hover {
-    color: #0056b3;
+    color: #6a11cb;
     text-decoration: underline;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    max-width: 400px; /* Metnin çok uzamasını engelle */
+    text-align: left; /* Metni sola hizala */
+}
+
+.feature-icon {
+    font-size: 2.5em; /* İkon boyutu */
+    flex-shrink: 0; /* İkonun küçülmemesini sağlar */
+    color: rgba(255, 255, 255, 0.9); /* İkon rengi */
+}
+
+.feature-item p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.85); /* Metin rengi */
+}
+
+.panel-tagline {
+    font-size: 1.3em;
+    margin-top: 20px;
+    font-style: italic;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
 }
 
 /* --- Duyarlılık (Responsive Tasarım) --- */

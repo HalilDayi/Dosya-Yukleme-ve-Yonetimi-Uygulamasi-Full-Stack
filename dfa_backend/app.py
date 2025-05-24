@@ -49,18 +49,6 @@ def get_db_connection():
         print(f"Veritabanı bağlantı hatası: {e}")
         return None
 
-# User ID Doğrulama Dekorasyon Fonksiyonu (Middleware gibi)
-#def validate_user_id(f):
-#    from functools import wraps
-#    @wraps(f)
-#    def decorated_function(*args, **kwargs):
-#        user_id = request.args.get('userId') or request.json.get('userId')
-#        if not user_id:
-#            return jsonify({"message": "Kullanıcı ID'si eksik!"}), 400
-#        # Kullanıcının gerçekten var olup olmadığını veya yetkili olup olmadığını kontrol edebilirsiniz.
-#        # Basitlik adına şu an sadece varlığını kontrol ediyoruz.
-#        return f(user_id=user_id, *args, **kwargs)
-#    return decorated_function
 
 def validate_user_id(f):
     @wraps(f)
@@ -71,16 +59,6 @@ def validate_user_id(f):
         if not user_id:
             return jsonify({"message": "Kullanıcı ID'si eksik. Lütfen 'userId' parametresini gönderin."}), 400
 
-        # Eğer dekoratör içinde başka bir request.json veya request.get_data() gibi
-        # isteğin gövdesini tüketen bir kod varsa, onu kaldırmalısınız.
-        # Örneğin:
-        # if request.is_json:
-        #     try:
-        #         data = request.get_json() # BU SATIR SORUN YARATABİLİR!
-        #     except Exception:
-        #         pass # Hata durumunda bir şey yapma, isteğin gövdesini tüketme
-
-        # user_id'yi dekore edilen fonksiyona geçir
         return f(user_id=user_id, *args, **kwargs)
     return decorated_function
 
@@ -167,10 +145,7 @@ def sign_up():
 
 @app.route('/upload-file', methods=['POST'])
 @validate_user_id
-def upload_file(user_id): #user_id
-    #user_id = request.args.get('userId') or request.form.get('userId')
-    #if not user_id:
-    #    return jsonify({"message": "Kullanıcı ID'si eksik."}), 400
+def upload_file(user_id):
     print(f"DEBUG: /upload-file çağrıldı. user_id: {user_id}")
 
     if 'file' not in request.files:
@@ -186,22 +161,14 @@ def upload_file(user_id): #user_id
         original_name = file.filename
         mime_type = file.content_type
 
-        # Dosyanın içeriğini okumadan önce boyutu almayı deneyelim
-        # Flask'in FileStorage objesi için content_length genellikle güvenlidir.
-        size_bytes = file.content_length
-        if size_bytes is None:
-            # Eğer content_length boşsa, o zaman dosyayı oku ve len() kullan.
-            # Ancak bu durumda dosyayı tekrar okumak için seek(0) yapmamız gerekebilir.
-            # Genellikle multipart/form-data için content_length zaten gelir.
-            print("UYARI: file.content_length boş, dosyayı okuyarak boyutu hesaplıyorum.")
-            file_contents = file.read()
-            size_bytes = len(file_contents)
-            file.seek(0) # Dosya imlecini başa döndür, Supabase yüklemesi için önemli olabilir
-        else:
-            # content_length varsa, doğrudan kullanın.
-            # file_contents'i Supabase yüklemesi için hala okumamız gerekiyor.
-            file_contents = file.read() # Bu kısmı burada bırakıyoruz.
+        # Dosyanın içeriğini oku ve boyutunu al.
+        # Bu, dosyanın gerçek boyutunu en güvenilir şekilde verir.
+        file_contents = file.read()
+        size_bytes = len(file_contents)
 
+        # Supabase'e yüklemeden önce dosya imlecini başa döndürmeye gerek yok,
+        # çünkü 'file_contents' (bytes) doğrudan upload metoduna gönderiliyor.
+        # Eğer 'file' objesini tekrar okuyacak başka bir işlem olsaydı file.seek(0) gerekli olurdu.
 
         file_extension = os.path.splitext(original_name)[1]
         stored_name = f"{uuid.uuid4()}{file_extension}"
@@ -211,10 +178,9 @@ def upload_file(user_id): #user_id
         print(f"DEBUG: Supabase storage path: {storage_path}")
 
         # Supabase Storage'a yükleme
-        # x-upsert: true, aynı isimde bir dosya varsa üzerine yazılmasını sağlar.
         response_upload = supabase.storage.from_(SUPABASE_BUCKET_NAME).upload(
             storage_path,
-            file_contents, # Okunmuş dosya içeriğini gönderiyoruz
+            file_contents, # Okunmuş dosya içeriğini (bytes) gönderiyoruz
             {
                 "content-type": mime_type,
                 "x-upsert": "true"
@@ -233,11 +199,9 @@ def upload_file(user_id): #user_id
             public_url = public_url_response.data.get('publicUrl')
         else:
             print(f"HATA: get_public_url'den beklenmeyen yanıt tipi veya formatı: {public_url_response}")
-            # Bu durumda public_url None kalacak ve aşağıdaki kontrol yakalayacak.
 
         if not public_url:
             print("HATA: Public URL alınamadı. Supabase bucket ayarlarını (public mi?) veya API anahtarlarını kontrol edin.")
-            # Eğer public URL alınamıyorsa, dosya yüklense bile kullanışlı değildir.
             return jsonify({"message": "Dosya yüklendi ancak genel URL oluşturulamadı. Lütfen bucket ayarlarını kontrol edin."}), 500
 
         # Veritabanı bağlantısı ve kaydı
@@ -263,8 +227,11 @@ def upload_file(user_id): #user_id
         return jsonify({"message": "Dosya başarıyla yüklendi!", "fileId": str(new_file_id), "publicUrl": public_url}), 201
 
     except Exception as e:
-        print(f"HATA: Dosya yükleme sırasında genel hata: {e}", exc_info=True) # exc_info=True ile detaylı traceback alın
+        print(f"HATA: Dosya yükleme sırasında genel hata: {e}", exc_info=True)
         return jsonify({"message": f"Dosya yüklenirken beklenmeyen bir hata oluştu: {e}"}), 500
+
+
+
 
 @app.route('/list-files', methods=['GET'])
 @validate_user_id

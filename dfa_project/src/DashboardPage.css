@@ -75,29 +75,21 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
 /* 4. Arama çubuğu ve dosya yükleme bölümü */
 .controls-section {
     width: 100%;
-    display: flex;
-    flex-direction: column; /* Varsayılan olarak dikey, küçük ekranlarda daha iyi */
+    display: flex; /* Varsayılan olarak flex, küçük ekranlarda dikey */
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin-bottom: 25px;
     gap: 20px; /* Bölümler arasında boşluk */
 }
 
-/* Arama çubuğu ve butonu için yeni kapsayıcı */
-.search-and-button-container {
-    display: flex;
-    gap: 10px; /* Input ve buton arasında boşluk */
-    width: 100%;
-    max-width: 00px; /* Arama bölümünün maksimum genişliği */
-    align-items: center;
-}
-
+/* Arama input'u */
 .search-input {
     flex-grow: 1; /* Mevcut alanı doldurur */
-    padding: 14px 18px; /* Daha büyük padding */
+    padding: 16px 20px; /* Padding'i artırdık */
     border: 1px solid #a0a0a0; /* Daha belirgin kenarlık */
     border-radius: 8px; /* Daha yuvarlak köşeler */
-    font-size: 1.1em; /* Daha büyük font */
+    font-size: 1.2em; /* Font boyutunu artırdık */
     box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
@@ -108,6 +100,7 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25); /* Odaklandığında mavi gölge */
 }
 
+/* Arama butonu */
 .search-button {
     background-color: #007bff;
     color: white;
@@ -126,16 +119,7 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
     box-shadow: 0 6px 12px rgba(0, 123, 255, 0.3);
 }
 
-.file-upload-section {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    width: 100%;
-    max-width: 600px; /* Yükleme bölümünün maksimum genişliği */
-    flex-wrap: wrap; /* Küçük ekranlarda sarmalama */
-    justify-content: center; /* Ortaya hizala */
-}
-
+/* Dosya seçme etiketi (içindeki dosya adını alt alta getirmek için flex column) */
 .file-input-label {
     background-color: #6c757d;
     color: white;
@@ -146,6 +130,13 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
     transition: background-color 0.3s ease, transform 0.2s ease;
     white-space: nowrap;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
+    /* İçindeki metin ve span için flex */
+    display: flex;
+    flex-direction: column; /* İçeriği dikey sırala */
+    justify-content: center;
+    align-items: center; /* Metni ve dosya adını ortala */
+    gap: 5px; /* Metin ve dosya adı arasında boşluk */
 }
 
 .file-input-label:hover {
@@ -157,17 +148,18 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
     display: none;
 }
 
-.selected-file-name { /* Seçilen dosya adı için yeni stil */
-    font-size: 0.9em;
-    color: #333;
-    margin-left: 5px;
+.selected-file-name { /* Seçilen dosya adı için stil */
+    font-size: 0.75em; /* Daha küçük font */
+    color: #fff; /* Beyaz renk, label'ın arka planına uyumlu */
+    /* margin-top: 5px; kaldırıldı, label'ın gap'i halledecek */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    max-width: 150px; /* Dosya adının çok uzamasını engelle */
+    max-width: 100%; /* Tam genişlik kullanabilir */
     flex-shrink: 0;
 }
 
+/* Yükleme butonu */
 .upload-button {
     background-color: #28a745;
     color: white;
@@ -279,8 +271,8 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
     background-color: #dc3545;
     color: white;
     border: none;
-    width: 38px; /* Boyutu büyüttük */
-    height: 38px; /* Boyutu büyüttük */
+    width: 40px; /* Boyutu büyüttük */
+    height: 40px; /* Boyutu büyüttük */
     border-radius: 50%;
     cursor: pointer;
     font-weight: bold;
@@ -339,30 +331,55 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
     color: #555;
 }
 
+.file-size, .file-type, .file-uploaded-at { /* Yeni eklenen span'ler için stil */
+    font-size: 0.9em;
+    color: #666;
+    /* margin-left: 10px; kaldırıldı, flex gap yönetecek */
+    flex-shrink: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /* Responsive Ayarlamalar */
 @media (min-width: 769px) {
-    /* Büyük ekranlarda arama ve yükleme yan yana */
+    /* Büyük ekranlarda kontrol bölümü için Grid */
     .controls-section {
-        flex-direction: row; /* Yatay sıralama */
-        justify-content: space-between; /* Boşlukları dağıt */
-        align-items: flex-start; /* Üstten hizala */
-        gap: 30px; /* Bölümler arası boşluk */
-        flex-wrap: nowrap; /* Sarmalamayı engelle */
+        display: grid;
+        /* Sütun oranları: search-input(70%), search-button(10%), file-input-label(10%), upload-button(10%) */
+        grid-template-columns: 7fr 1fr 1fr 1fr;
+        gap: 15px; /* Grid öğeleri arasındaki boşluk */
+        align-items: center; /* Dikeyde ortala */
+        max-width: 900px; /* Container'ın max genişliği */
     }
 
-    .search-and-button-container,
-    .file-upload-section {
-        flex-basis: 48%; /* Yaklaşık yarım genişlik */
-        max-width: none; /* Max genişliği kaldır */
-        flex-shrink: 0;
+    /* Arama input'u */
+    .search-input {
+        grid-column: 1 / 2; /* İlk sütunu kapla */
+        /* Padding ve font-size zaten ayarlı */
     }
 
-    .search-and-button-container {
-        justify-content: flex-start; /* Sola hizala */
+    /* Arama butonu */
+    .search-button {
+        grid-column: 2 / 3; /* İkinci sütunu kapla */
+        width: auto; /* Grid'in genişliği yönetmesine izin ver */
+        /* Padding ve font-size zaten ayarlı */
     }
 
-    .file-upload-section {
-        justify-content: flex-end; /* Sağa hizala */
+    /* Dosya seçme etiketi (içindeki dosya adını alt alta getirmek için flex column) */
+    .file-input-label {
+        grid-column: 3 / 4; /* Üçüncü sütunu kapla */
+        width: auto; /* Grid'in genişliği yönetmesine izin ver */
+        /* İçindeki metin ve span için flex ayarları zaten yukarıda */
+        padding: 12px 15px; /* Butonlarla aynı yüksekliği sağlamak için padding ayarı */
+        font-size: 0.9em; /* Butonlarla aynı font boyutu */
+    }
+
+    /* Yükleme butonu */
+    .upload-button {
+        grid-column: 4 / 5; /* Dördüncü sütunu kapla */
+        width: auto; /* Grid'in genişliği yönetmesine izin ver */
+        /* Padding ve font-size zaten ayarlı */
     }
 }
 
@@ -383,13 +400,7 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
         gap: 15px;
     }
 
-    .search-and-button-container,
-    .file-upload-section {
-        max-width: 100%; /* Tam genişlik */
-        flex-direction: column; /* İçindeki elemanları dikey sırala */
-        align-items: stretch;
-    }
-
+    /* Tüm bu elemanlar küçük ekranda tam genişlikte alt alta sıralanacak */
     .search-input,
     .search-button,
     .file-input-label,
@@ -403,6 +414,7 @@ html, body, #root { /* #root id'si genelde React uygulamasının bağlandığı 
     .selected-file-name {
         margin-top: 5px; /* Üstten boşluk */
         max-width: 100%;
+        color: #333; /* Mobil görünümde dosya adının rengini tekrar siyaha çevir */
     }
 
     .file-item {

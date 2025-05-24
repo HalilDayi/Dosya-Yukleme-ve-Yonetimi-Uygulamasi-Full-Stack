@@ -55,7 +55,39 @@ const SignUpPage = () => {
   return (
     <div className="signup-container">
       {/* Sol Panel */}
-      <div className="signup-image-panel"></div>
+      <div className="signup-image-panel">
+
+        {/* Ana Başlık */}
+        <h2>Dijital Dosyalarınızı Kolayca Yönetin!</h2>
+
+        {/* Özellikler Bölümü */}
+        <div className="feature-item">
+          <span className="feature-icon">☁️</span> {/* Bulut veya yukarı ok ikonu */}
+          <p>
+            **<b>Hızlı Yükleme:</b>** Belgelerinizi, fotoğraflarınızı ve diğer dosyalarınızı güvenle yükleyin.
+          </p>
+        </div>
+
+        <div className="feature-item">
+          <span className="feature-icon">📂</span> {/* Klasör veya liste ikonu */}
+          <p>
+            **<b>Kolay Erişim ve Arama:</b>** Yüklediğiniz tüm dosyalara istediğiniz zaman, istediğiniz yerden erişin ve kolayca arayın.
+          </p>
+        </div>
+
+        <div className="feature-item">
+          <span className="feature-icon">🗑️</span> {/* Çöp kutusu ikonu */}
+          <p>
+            **<b>Basit Yönetim:</b>** İhtiyaç duymadığınız dosyaları tek tıkla silin.
+          </p>
+        </div>
+
+        {/* Ek Bilgi (Opsiyonel) */}
+        <p className="panel-tagline">
+          Dosya yönetimi hiç bu kadar kolay olmamıştı!
+        </p>
+
+      </div>
 
       {/* Sağ Panel */}
       <div className="signup-form-panel">

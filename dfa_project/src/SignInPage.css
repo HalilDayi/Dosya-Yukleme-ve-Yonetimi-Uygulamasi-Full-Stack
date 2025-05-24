@@ -70,6 +70,11 @@
 
 .input-group {
     text-align: left;
+    width: 92%;
+}
+
+.input-group > #email, .input-group > #password{
+    color: white;
 }
 
 .input-group label {
@@ -136,6 +141,36 @@
 .signup-link:hover {
     color: #550bb6;
     text-decoration: underline;
+}
+
+.feature-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+    max-width: 400px; /* Metnin çok uzamasını engelle */
+    text-align: left; /* Metni sola hizala */
+}
+
+.feature-icon {
+    font-size: 2.5em; /* İkon boyutu */
+    flex-shrink: 0; /* İkonun küçülmemesini sağlar */
+    color: rgba(255, 255, 255, 0.9); /* İkon rengi */
+}
+
+.feature-item p {
+    font-size: 1.1em;
+    line-height: 1.6;
+    margin: 0;
+    color: rgba(255, 255, 255, 0.85); /* Metin rengi */
+}
+
+.panel-tagline {
+    font-size: 1.3em;
+    margin-top: 20px;
+    font-style: italic;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.95);
 }
 
 /* --- Duyarlılık (Responsive Tasarım) --- */
